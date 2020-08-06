@@ -1,0 +1,135 @@
+<!DOCTYPE HTML>
+<html>
+  <head>
+    <title>Audio test</title>
+    <head>
+  </head>
+
+  <body>
+    <div id="g_3_z3U7vhcE">
+      <p class="event__score--home">32</p>
+      <p class="event__score--away">20</p>
+    </div>
+    <div id="g_3_jXHEHSeS123213">
+      <p class="event__score--home">22</p>
+      <p class="event__score--away">40</p>
+    </div>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script>
+
+      var gameId  = "g_3_f1MZCn4q";
+      var playing = false;
+      var audioCounter = 0;
+
+      var interval = setInterval(Rezultat, 2000);
+
+        function Rezultat() {
+          audioCounter++;
+
+          var homeTeam = $(`#${gameId} .event__participant--home`).text();
+          var homeScore = parseInt($(`#${gameId} .event__score--home`).text());
+
+          //away team class
+          var awayTeam = $(`#${gameId} .event__participant--away`).text();
+          var awayScore = parseInt($(`#${gameId} .event__score--away`).text());
+
+          var awayLead = awayScore - homeScore;
+          var homeLead = homeScore - awayScore; 
+
+          if(!playing) {
+            playing = true;
+            if (homeLead >= 3) {
+              playSound(audioCounter);
+
+              var aud = document.getElementById("myAudio" + audioCounter);
+              aud.onplay  = function() {
+                alert(`Game 1: ${homeTeam} vs ${awayTeam} ${homeScore}:${awayScore}`);
+              }; 
+              aud.onended = function() {
+                playing = false;
+                }
+            }
+          }
+        }
+
+        function playSound(counter){
+            $("body").append(`<audio id="myAudio${counter}" autoplay="autoplay" src="https://sport-news.s3.amazonaws.com/Hallelujah.mp3">`);
+        }           
+
+
+      // var gameId = ['g_3_z3U7vhcE', 'g_3_jXHEHSeS123213'];
+      // var playing = false;
+      
+      // var  intervali = setInterval(() => {
+
+      //   for (let game of gameId) {
+          
+      //     if(playing) {
+      //       break;
+      //     }
+
+      //     //id of the match
+      //     //home team class
+      //     var homeTeam = $(`#${game} .event__participant--home`).text();
+      //     var homeScore = parseInt($(`#${game} .event__score--home`).text());
+
+      //     //away team class
+      //     var awayTeam = $(`#${game} .event__participant--away`).text();
+      //     var awayScore = parseInt($(`#${game} .event__score--away`).text());
+
+      //     var awayLead = awayScore - homeScore;
+      //     var homeLead = homeScore - awayScore; 
+
+      //     var data  = {
+      //       home : homeTeam,
+      //       homeScore  : homeScore,
+      //       away : awayTeam,
+      //       awayScore : awayScore,
+      //     }
+
+      //     switch(game){
+      //       case "g_3_z3U7vhcE":
+      //         if(homeLead >= 10) {
+      //             playSound();
+      //             var aud = document.getElementById("myAudio");
+      //             aud.onplay  = function() {
+      //               alert(`Game 1: ${data.home} vs ${data.away} ${data.homeScore}:${data.awayScore}`);
+      //               clearInterval(intervali);
+      //             }; 
+      //             playing = true;
+      //             aud.onended = function() {
+      //               alert('Ended 1');
+      //               playing = false;
+      //             }
+      //         }
+      //         break;
+      //       case 'g_3_jXHEHSeS123213':
+      //         if (playing == false) {
+      //           if(awayLead >= 10) {
+      //             playSound();
+      //             var aud = document.getElementById("myAudio");
+      //             aud.onplay  = function() {
+      //               alert(`Game ${data.home} vs ${data.away} ${data.homeScore}:${data.awayScore}`);
+      //               clearInterval(intervali);
+      //             };
+      //             playing = true; 
+      //             aud.onended = function() {
+      //               alert('Ended 1');
+      //               playing = false;
+      //             }
+      //           }
+      //       }
+      //         break;
+      //       default:
+      //         break;  
+      //     }
+      //   }
+
+
+      // }, 2000);
+
+
+
+    </script>
+  </body>
+</html>
